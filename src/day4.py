@@ -25,3 +25,13 @@ def process_scratchers(cardlist: list) -> int:
         checknumlist = checknum.split()
         stack.append([winnumlist,checknumlist,1])
     return(stack)
+
+def calculate_total_scratchers(cards: list) -> int:
+    cardlist = process_scratchers(cards)
+    for number,card in enumerate(cardlist):
+        score = len([value for value in card[0] if value in card[1]])
+        if score > 0:
+            for i in range(card[2]):
+                for j in range(score):
+                    cardlist[number+j+1][2] += 1
+    return sum(x[2] for x in cardlist)
