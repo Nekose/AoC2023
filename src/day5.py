@@ -19,21 +19,24 @@ class almanac(object):
 
 class almanac_entries(object):
     def __init__(self,input: list[list],name,target) -> None:
-        self.map = {}
+        self.map = []
         for line in input:
             destination_range_start = int(line[0])
             source_range_start = int(line[1])
             range_length = int(line[2])
-            for step in range(range_length):
-                    self.map[source_range_start + step]=destination_range_start + step
+            self.map.append([destination_range_start,source_range_start,range_length])
         self.name = name
         self.target = target
 
     def return_entry(self,lookup:int) -> int:
-        if lookup in self.map:
-            return self.map[lookup]
-        else:
-            return lookup
+        for line in self.map:
+            destination_range_start = int(line[0])
+            source_range_start = int(line[1])
+            range_length = int(line[2])
+            if source_range_start <= lookup <= source_range_start + range_length:
+                difference = lookup - source_range_start
+                return destination_range_start + difference
+        return lookup
 
     def __str__(self) -> str:
         return f"Almanac titled '{self.name}' which targets '{self.target}'"
