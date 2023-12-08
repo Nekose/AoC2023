@@ -13,5 +13,6 @@ print(card > card2)
 print(card < card2)
 print(card == card2)
 
-testhand = Hand.Hand("KKKKK")
+testhand = Hand.Hand("1K2TJ",123)
 print(testhand)
+print(testhand.score())
